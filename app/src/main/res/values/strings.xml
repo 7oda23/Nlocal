@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Person info</string>
+    <string name="namehint">enter friend name</string>
+    <string name="make">GO</string>
+</resources>

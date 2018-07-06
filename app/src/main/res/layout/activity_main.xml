@@ -17,7 +17,9 @@
         android:hint="@string/namehint"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="1dp" />
+        tools:layout_editor_absoluteY="1dp"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        />
 
     <Button
         android:id="@+id/makeB"

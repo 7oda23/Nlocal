@@ -1,45 +1,64 @@
 package com.example.a7oda.nlocal;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.widget.Button;
-import android.widget.EditText;
+import java.io.Serializable;
 
-public class person implements Parcelable{
+public class person implements Serializable {
         public String name,pass,email;
         int phone;
-        public Button GO;
-        person(){}
 
-    protected person(Parcel in) {
-    }
-
-    public static final Creator<person> CREATOR = new Creator<person>() {
-        @Override
-        public person createFromParcel(Parcel in) {
-            return new person(in);
+        public int getId() {
+                return id;
         }
 
-        @Override
-        public person[] newArray(int size) {
-            return new person[size];
+        public void setId(int id) {
+                this.id = id;
         }
-    };
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+        int id;
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
+        public person(String name, String pass, String email, int phone) {
+                this.name = name;
+                this.pass = pass;
+                this.email = email;
+                this.phone = phone;
+        }
+        public person(String name, String email) {
+                this.name = name;
+                this.email= email;
+        }
+        public person(){}
+        public String getName() {
+                return name;
+        }
 
-    public String getName() {
-        return name;
-    }
+        public void setName(String name) {
+                this.name = name;
+        }
 
-    public String getPass() {
-        return pass;
-    }
+        public String getPass() {
+                return pass;
+        }
+
+        public void setPass(String pass) {
+                this.pass = pass;
+        }
+
+        public String getEmail() {
+                return email;
+        }
+
+        public void setEmail(String email) {
+                this.email = email;
+        }
+
+        public int getPhone() {
+                return phone;
+        }
+
+        public void setPhone(int phone) {
+                this.phone = phone;
+        }
+
+
+
 }

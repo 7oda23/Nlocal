@@ -26,9 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
-        android:text="@string/make" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="132dp"
+        android:layout_marginStart="67dp"
+        android:text="@string/add_person" />
 
     <EditText
         android:id="@+id/pass"
@@ -38,18 +39,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
         android:ems="10"
-        android:hint="enter your password"
+        android:hint="@string/enter_your_password"
         android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="126dp"
+        android:layout_marginTop="121dp"
         android:ems="10"
-        android:hint="enter ur email"
+        android:hint="@string/enter_ur_email"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -60,7 +61,26 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="187dp"
         android:ems="10"
-        android:hint="enter ur phone number"
+        android:hint="@string/enter_ur_phone_number"
         android:inputType="phone" />
+
+    <Button
+        android:id="@+id/showB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/makeB"
+        android:layout_marginEnd="67dp"
+        android:text="@string/show_all" />
+
+    <Button
+        android:id="@+id/Update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/makeB"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-132dp"
+        android:text="Update"
+        android:visibility="invisible" />
 
 </RelativeLayout>

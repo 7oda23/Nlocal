@@ -2,31 +2,34 @@ package com.example.a7oda.nlocal;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
+
+import static android.view.View.GONE;
 
 
 public class MainActivity extends AppCompatActivity {
-    public person2 x = new person2();
+    PersonsDB db ;
+    public ArrayList<person> y=new ArrayList<>();
     private EditText name;
+    private int flag;
     private EditText email;
     private EditText phone;
     private EditText pass;
-    private Button go;
-    private int flag = 0;
-    private Pattern p = Pattern.compile("[a-zA-z]") ;
+    private Button add;
+    private Button show;
+    private Button update;
+    person x=new person();
+    person updatep=new person();
     public Boolean isempty(EditText x)
     {
         if(x.getText().length()==0)
@@ -45,27 +48,23 @@ public class MainActivity extends AppCompatActivity {
         pass = findViewById(R.id.pass);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
-        go = findViewById(R.id.makeB);
-
-
-        go.setOnClickListener(new View.OnClickListener() {
+        add = findViewById(R.id.makeB);
+        show = findViewById(R.id.showB);
+        update = findViewById(R.id.Update);
+        db = new PersonsDB(this);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flag = 0 ;
+                x= new person();
                 if(isempty(name)  )
                 {
                     flag++;
-                //    Toast.makeText(MainActivity.this,"name is empty",Toast.LENGTH_SHORT ).show();
                     name.setError("name is requierd ");
-                }
-                else
-                {
-                    x.setName(name.getText().toString());
                 }
                 if(isempty(phone))
                 {
                     flag++;
-                  //  Toast.makeText(MainActivity.this,"phone is empty",Toast.LENGTH_SHORT ).show();
                     phone.setError("phone is requierd ");
                 }
                 else if(!Patterns.PHONE.matcher(phone.getText()).matches())
@@ -74,25 +73,15 @@ public class MainActivity extends AppCompatActivity {
                     flag++;
 
                 }
-                else
-                {
-                    x.setPhone(Integer.parseInt((phone.getText().toString())));
-                }
                 if(isempty(pass))
                 {
                     flag++;
-                  //  Toast.makeText(MainActivity.this,"pass is empty",Toast.LENGTH_SHORT ).show();
                     pass.setError("pass is requierd ");
 
-                }
-                else
-                {
-                    x.setPass(pass.getText().toString());
                 }
                 if(isempty(email))
                 {
                     flag++;
-               //     Toast.makeText(MainActivity.this,"email is empty",Toast.LENGTH_SHORT ).show();
                     email.setError("email is requierd ");
 
                 }
@@ -101,17 +90,125 @@ public class MainActivity extends AppCompatActivity {
                     email.setError("email form is wrong");
                     flag++;
                 }
-                else
-                {
-                    x.setEmail(email.getText().toString());
-                }
                 if(flag==0) {
-                    Intent intent = new Intent(MainActivity.this, detailsActivity.class);
-                    intent.putExtra("person", x);
-                    startActivity(intent);
+                   x= new person(name.getText().toString(),pass.getText().toString(),email.getText().toString(),Integer.parseInt(phone.getText().toString()));
+                    x.setName(name.getText().toString());
+                    x.setEmail(email.getText().toString());
+                    x.setPhone(Integer.parseInt(phone.getText().toString()));
+                    x.setPass(pass.getText().toString());
+                  if(db.insertD(x))
+                    {
+                        Toast.makeText(MainActivity.this, "person is added  ", Toast.LENGTH_SHORT).show();
+                    }
+                    name.setText("");
+                    pass.setText("");
+                    phone.setText("");
+                    email.setText("");
                 }
             }
         });
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                y.clear();
+                y.addAll(db.showall());
+                if(y.size()==0)
+                {
+                    Toast.makeText(MainActivity.this, "no persons yet", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, PersonActivity.class);
+                    intent.putExtra("person", y);
+                    startActivity(intent);
+                    startservice(show);
+                }
+            }
+        });
+//          update part
+        updatep = (person) getIntent().getSerializableExtra("Pupdate");
+        if(updatep != null) {
+           show.setVisibility(View.INVISIBLE);
+           add.setVisibility(View.INVISIBLE);
+           update.setVisibility(View.VISIBLE);
+            name.setText(updatep.getName());
+            pass.setText(updatep.getPass());
+            phone.setText(""+updatep.getPhone());
+            email.setText(updatep.getEmail());
+        }
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag = 0 ;
+                x= new person();
+                if(isempty(name)  )
+                {
+                    flag++;
+                    name.setError("name is requierd ");
+                }
+                if(isempty(phone))
+                {
+                    flag++;
+                    phone.setError("phone is requierd ");
+                }
+                else if(!Patterns.PHONE.matcher(phone.getText()).matches())
+                {
+                    phone.setError("phone form is wrong");
+                    flag++;
 
+                }
+                if(isempty(pass))
+                {
+                    flag++;
+                    pass.setError("pass is requierd ");
+
+                }
+                if(isempty(email))
+                {
+                    flag++;
+                    email.setError("email is requierd ");
+
+                }
+                else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches())
+                {
+                    email.setError("email form is wrong");
+                    flag++;
+                }
+                if(flag==0) {
+                    x= new person(name.getText().toString(),pass.getText().toString(),email.getText().toString(),Integer.parseInt(phone.getText().toString()));
+                    x.setName(name.getText().toString());
+                    x.setEmail(email.getText().toString());
+                    x.setPhone(Integer.parseInt(phone.getText().toString()));
+                    x.setPass(pass.getText().toString());
+                    if(db.updateperson(x,updatep))
+                    {
+                        Toast.makeText(MainActivity.this, "person is updated  ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                y.clear();
+                y.addAll(db.showall());
+                if(y.size()==0)
+                {
+                    Toast.makeText(MainActivity.this, "no persons yet", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, PersonActivity.class);
+                    intent.putExtra("person", y);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
+    public void startservice(View v )
+    {
+        String show = "U can now see All .";
+        Intent service = new Intent(this , MediaService.class);
+        service.putExtra("show",show);
+        startService(service);
+    }
+    public void stopservice(View v){
+        Intent service = new Intent(this , MediaService.class);
+        stopService(service);
+    }
+
 }

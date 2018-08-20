@@ -2,4 +2,9 @@
     <string name="app_name">Person info</string>
     <string name="namehint">enter friend name</string>
     <string name="make">GO</string>
+    <string name="show_all">Show all</string>
+    <string name="enter_ur_phone_number">enter ur phone number</string>
+    <string name="enter_ur_email">enter ur email</string>
+    <string name="enter_your_password">enter your password</string>
+    <string name="add_person">Add person</string>
 </resources>

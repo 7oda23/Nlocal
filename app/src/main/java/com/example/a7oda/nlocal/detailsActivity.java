@@ -1,17 +1,30 @@
 package com.example.a7oda.nlocal;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class detailsActivity extends AppCompatActivity {
+    private static final String TAG = null;
     private TextView name;
     private TextView pass;
     private TextView email;
     private TextView phone;
-    private person2 y=new person2();
+    public NotificationCompat.Builder noti;
+    private  int id = 0 ;
+    private person y=new person();
+    private PersonsDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +34,18 @@ public class detailsActivity extends AppCompatActivity {
         pass = findViewById(R.id.passview);
         email = findViewById(R.id.emailview);
         phone = findViewById(R.id.phoneview);
-        y = (person2) getIntent().getSerializableExtra("person");
-    /*y = getIntent().getExtras().getParcelable("person");
-        Bundle data = getIntent().getExtras();
-        y= data.getParcelable("person");*/
+        y = (person) getIntent().getSerializableExtra("personclicked");
         name.setText(y.getName());
         pass.setText(y.getPass());
         email.setText(y.getEmail());
         phone.setText("+20" + y.getPhone());
+        noti   = new NotificationCompat.Builder(this,"Channel1"+id)
+                .setSmallIcon(R.drawable.person)
+                .setContentTitle(y.getName())
+                .setContentText("u Viewed this person"+y.getName())
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(id,noti.build());
+        id++;
+        }
     }
-}

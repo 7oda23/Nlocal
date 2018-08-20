@@ -1,10 +1,8 @@
-package com.example.a7oda.nlocal;
+package com.example.a7oda.AccountSaver;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.os.IBinder;

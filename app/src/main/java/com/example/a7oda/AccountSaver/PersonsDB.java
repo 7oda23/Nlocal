@@ -1,15 +1,12 @@
-package com.example.a7oda.nlocal;
+package com.example.a7oda.AccountSaver;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 public class PersonsDB extends SQLiteOpenHelper {
     int i ;

@@ -1,4 +1,4 @@
-package com.example.a7oda.nlocal;
+package com.example.a7oda.AccountSaver;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

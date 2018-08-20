@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.a7oda.nlocal">
+    package="com.example.a7oda.AccountSaver">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.a7oda.AccountSaver.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PersonActivity"></activity>
-        <activity android:name=".detailsActivity"></activity>
-        <service android:name=".MediaService"></service>
+        <activity android:name="com.example.a7oda.AccountSaver.PersonActivity"></activity>
+        <activity android:name="com.example.a7oda.AccountSaver.detailsActivity"></activity>
+        <service android:name="com.example.a7oda.AccountSaver.MediaService"></service>
     </application>
 
 </manifest>
